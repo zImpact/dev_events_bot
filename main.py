@@ -34,7 +34,7 @@ def update_repo():
 def send_message():
     data = request.json
     if not data:
-        return 400
+        return "No data", 400
 
     if "commits" in data:
         repo = data["repository"]["name"]
@@ -44,9 +44,9 @@ def send_message():
         text = f"🚀 Новый коммит в репозитории *{repo}* от {pusher}:\n{commit_messages}"
 
         send_info(text)
-        return 200
+        return "Message sended", 200
 
-    return 200
+    return "Ignored", 200
 
 
 if __name__ == "__main__":
