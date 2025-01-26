@@ -6,6 +6,7 @@ from flask import Flask, request
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 REPO_PATH = os.getenv("GITHUB_REPO_PATH")
+WSGI_PATH = os.getenv("SERVER_WSGI_PATH")
 URL = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
 
@@ -23,9 +24,10 @@ def update_repo():
         repo = git.Repo(REPO_PATH)
         origin = repo.remotes.origin
         origin.pull()
-        return 200
-    except Exception:
-        return 500
+        os.system(f"touch {WSGI_PATH}")
+        return "Updated and restarted", 200
+    except Exception as e:
+        return f"Update failed: {str(e)}", 500
 
 
 @app.route("/send_message", methods=["POST"])
