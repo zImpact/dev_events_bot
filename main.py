@@ -24,6 +24,10 @@ def update_repo():
     try:
         repo = git.Repo(REPO_PATH)
         origin = repo.remotes.origin
+
+        repo.git.reset("--hard")
+        repo.git.clean("-fd")
+        
         origin.pull()
         os.system(f"touch {WSGI_PATH}")
         return "Updated and restarted", 200
