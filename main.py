@@ -15,10 +15,18 @@ TG_IDS = {
     "Buhicevskij": os.getenv("DANYA_ID"),
     "Aleron-Meredi": os.getenv("EGOR_ID")
 }
+REPO_NAMES = {
+    "yana": "Яна",
+    "din": "Дни нигде",
+    "tl": "Петля времени",
+    "osd": "Один украденный день",
+    "thld": "Преддверие",
+    "bsar": "Между сном и явью"
+}
 
 
 def github_to_tg(nickname):
-    return TG_IDS[nickname]
+    return TG_IDS.get(nickname, -1)
 
 
 def send_info(text):
@@ -60,7 +68,9 @@ def send_message():
         user = data["sender"]["login"]
         url = issue["html_url"]
 
-        text = f"🆕 *Новая задача в проекте {repo}!*\n👤 *Автор:* {user}\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
+        project_name = REPO_NAMES.get(repo, repo)
+
+        text = f"🆕 *Новая задача в проекте {project_name}!*\n👤 *Автор:* {user}\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
         send_info(text)
         return "Issue created and sent to Telegram", 200
 
@@ -71,7 +81,9 @@ def send_message():
         title = issue["title"]
         url = issue["html_url"]
 
-        text = f"🎯 *Назначен исполнитель задачи в проекте {repo}!*\n📌 *Название:* {title}\n👤 *Исполнитель:* {assignee}\n🔗 [Открыть задачу]({url})"
+        project_name = REPO_NAMES.get(repo, repo)
+
+        text = f"🎯 *Назначен исполнитель задачи в проекте {project_name}!*\n📌 *Название:* {title}\n👤 *Исполнитель:* {assignee}\n🔗 [Открыть задачу]({url})"
         send_info(text)
         return "Assignment notification sent", 200
 
@@ -81,7 +93,9 @@ def send_message():
         title = issue["title"]
         url = issue["html_url"]
 
-        text = f"✅ *Задача в проекте {repo} закрыта!*\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
+        project_name = REPO_NAMES.get(repo, repo)
+
+        text = f"✅ *Задача в проекте {project_name} закрыта!*\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
         send_info(text)
         return "Issue closed notification sent", 200
 
@@ -90,7 +104,11 @@ def send_message():
         pusher = data["pusher"]["name"]
         commit_messages = "\n".join(
             [f"- {commit['message']}" for commit in data["commits"]])
-        text = f"🚀 Новый коммит в репозитории *{repo}* от [{pusher}](tg://user?id={github_to_tg(pusher)}):\n{commit_messages}"
+
+        project_name = REPO_NAMES.get(repo, repo)
+        repo_part = f"{repo}/{project_name}" if project_name != repo else {repo}
+
+        text = f"🚀 Новый коммит в репозитории *{repo_part}* от [{pusher}](tg://user?id={github_to_tg(pusher)}):\n{commit_messages}"
 
         send_info(text)
         return "Message sended", 200
