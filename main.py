@@ -47,7 +47,7 @@ def send_message():
         repo = data["repository"]["name"]
         issue = data["issue"]
         title = issue["title"]
-        user = issue["sender"]["login"]
+        user = data["sender"]["login"]
         url = issue["html_url"]
 
         text = f"🆕 *Новая задача в проекте {repo}!*\n👤 *Автор:* {user}\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
