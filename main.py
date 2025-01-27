@@ -7,12 +7,15 @@ TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 REPO_PATH = os.getenv("GITHUB_REPO_PATH")
 WSGI_PATH = os.getenv("SERVER_WSGI_PATH")
+THREAD_ID = os.getenv("TELEGRAM_THREAD_ID")
 URL = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
 
 def send_info(text):
-    data = {"chat_id": CHAT_ID, "text": text, "parse_mode": "Markdown"}
-    requests.post(URL, data=data)
+    data = {"chat_id": CHAT_ID, "message_thread_id": THREAD_ID,
+            "parse_mode": "Markdown", "text": text}
+    response = requests.post(URL, data=data)
+    return response.json()
 
 
 app = Flask(__name__)
@@ -23,6 +26,10 @@ def update_repo():
     try:
         repo = git.Repo(REPO_PATH)
         origin = repo.remotes.origin
+
+        repo.git.reset("--hard")
+        repo.git.clean("-fd")
+
         origin.pull()
         os.system(f"touch {WSGI_PATH}")
         return "Updated and restarted", 200
