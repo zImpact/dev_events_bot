@@ -11,7 +11,7 @@ URL = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
 
 def send_info(text):
-    data = {"chat_id": CHAT_ID, "text": text}
+    data = {"chat_id": CHAT_ID, "text": text, "parse_mode": "Markdown"}
     requests.post(URL, data=data)
 
 
@@ -35,6 +35,38 @@ def send_message():
     data = request.json
     if not data:
         return "No data", 400
+
+    if data.get("action") == "opened" and "issue" in data:
+        repo = data["repository"]["name"]
+        issue = data["issue"]
+        title = issue["title"]
+        user = issue["sender"]["login"]
+        url = issue["html_url"]
+
+        text = f"🆕 *Новая задача в проекте {repo}!*\n👤 *Автор:* {user}\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
+        send_info(text)
+        return "Issue created and sent to Telegram", 200
+
+    if data.get("action") == "assigned" and "issue" in data:
+        repo = data["repository"]["name"]
+        issue = data["issue"]
+        assignee = data["assignee"]["login"]
+        title = issue["title"]
+        url = issue["html_url"]
+
+        text = f"🎯 *Назначен исполнитель задачи в проекте {repo}!*\n📌 *Название:* {title}\n👤 *Исполнитель:* {assignee}\n🔗 [Открыть задачу]({url})"
+        send_info(text)
+        return "Assignment notification sent", 200
+
+    if data.get("action") == "closed" and "issue" in data:
+        repo = data["repository"]["name"]
+        issue = data["issue"]
+        title = issue["title"]
+        url = issue["html_url"]
+
+        text = f"✅ *Задача в проекте {repo} закрыта!*\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
+        send_info(text)
+        return "Issue closed notification sent", 200
 
     if "commits" in data:
         repo = data["repository"]["name"]
