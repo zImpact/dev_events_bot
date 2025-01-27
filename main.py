@@ -70,7 +70,7 @@ def send_message():
 
         project_name = REPO_NAMES.get(repo, repo)
 
-        text = f"🆕 *Новая задача в проекте {project_name}!*\n👤 *Автор:* {user}\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
+        text = f"🆕 Новая задача в проекте *{project_name}*!\n👤 *Автор:* {user}\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
         send_info(text)
         return "Issue created and sent to Telegram", 200
 
@@ -83,7 +83,7 @@ def send_message():
 
         project_name = REPO_NAMES.get(repo, repo)
 
-        text = f"🎯 *Назначен исполнитель задачи в проекте {project_name}!*\n📌 *Название:* {title}\n👤 *Исполнитель:* {assignee}\n🔗 [Открыть задачу]({url})"
+        text = f"🎯 Назначен исполнитель задачи в проекте *{project_name}*!\n📌 *Название:* {title}\n👤 *Исполнитель:* {assignee}\n🔗 [Открыть задачу]({url})"
         send_info(text)
         return "Assignment notification sent", 200
 
@@ -95,7 +95,7 @@ def send_message():
 
         project_name = REPO_NAMES.get(repo, repo)
 
-        text = f"✅ *Задача в проекте {project_name} закрыта!*\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
+        text = f"✅ Задача в проекте *{project_name}* закрыта!\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
         send_info(text)
         return "Issue closed notification sent", 200
 
