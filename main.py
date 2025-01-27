@@ -90,7 +90,7 @@ def send_message():
         pusher = data["pusher"]["name"]
         commit_messages = "\n".join(
             [f"- {commit['message']}" for commit in data["commits"]])
-        text = f"🚀 Новый коммит в репозитории *{repo}* от *[{pusher}](tg://user?id={github_to_tg(pusher)})*:\n{commit_messages}"
+        text = f"🚀 Новый коммит в репозитории *{repo}* от [{pusher}](tg://user?id={github_to_tg(pusher)}):\n{commit_messages}"
 
         send_info(text)
         return "Message sended", 200
