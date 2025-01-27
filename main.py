@@ -106,7 +106,7 @@ def send_message():
             [f"- {commit['message']}" for commit in data["commits"]])
 
         project_name = REPO_NAMES.get(repo, repo)
-        repo_part = f"{repo}/{project_name}" if project_name != repo else {repo}
+        repo_part = f"{repo}/{project_name}" if project_name != repo else f"{repo}"
 
         text = f"🚀 Новый коммит в репозитории *{repo_part}* от [{pusher}](tg://user?id={github_to_tg(pusher)}):\n{commit_messages}"
 
