@@ -61,18 +61,18 @@ def send_message():
     if not data:
         return "No data", 400
 
-    if data.get("action") == "opened" and "issue" in data:
-        repo = data["repository"]["name"]
-        issue = data["issue"]
-        title = issue["title"]
-        user = data["sender"]["login"]
-        url = issue["html_url"]
+    # if data.get("action") == "opened" and "issue" in data:
+    #     repo = data["repository"]["name"]
+    #     issue = data["issue"]
+    #     title = issue["title"]
+    #     user = data["sender"]["login"]
+    #     url = issue["html_url"]
 
-        project_name = REPO_NAMES.get(repo, repo)
+    #     project_name = REPO_NAMES.get(repo, repo)
 
-        text = f"🆕 Новая задача в проекте *{project_name}*!\n👤 *Автор:* {user}\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
-        send_info(text)
-        return "Issue created and sent to Telegram", 200
+    #     text = f"🆕 Новая задача в проекте *{project_name}*!\n👤 *Автор:* {user}\n📌 *Название:* {title}\n🔗 [Открыть задачу]({url})"
+    #     send_info(text)
+    #     return "Issue created and sent to Telegram", 200
 
     if data.get("action") == "assigned" and "issue" in data:
         repo = data["repository"]["name"]
