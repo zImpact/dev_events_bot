@@ -83,7 +83,7 @@ def send_message():
 
         project_name = REPO_NAMES.get(repo, repo)
 
-        text = f"🎯 Назначен исполнитель задачи в проекте *{project_name}*!\n📌 *Название:* {title}\n👤 *Исполнитель:* {assignee}\n🔗 [Открыть задачу]({url})"
+        text = f"🎯 Назначен исполнитель задачи в проекте *{project_name}*!\n📌 *Название:* {title}\n👤 *Исполнитель:* [{assignee}](tg://user?id={github_to_tg(assignee)})\n🔗 [Открыть задачу]({url})"
         send_info(text)
         return "Assignment notification sent", 200
 
