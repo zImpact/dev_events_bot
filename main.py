@@ -117,11 +117,7 @@ def send_message():
 
         commit_text_block = "\n".join(commit_messages)
 
-        text = (f"🚀 Новый коммит в репозитории *{repo_part}*!\n"
-                f"👤 *Автор:* [{pusher}](tg://user?id={github_to_tg(pusher)})\n"
-                f"📝 *Изменения:*\n{commit_text_block}\n"
-                f"🔗 [Открыть репозиторий]({data['html_url']})"
-                )
+        text = f"🚀 Новый коммит в репозитории *{repo_part}*!\n👤 *Автор:* [{pusher}](tg://user?id={github_to_tg(pusher)})\n📝 *Изменения:*\n{commit_text_block}\n🔗 [Открыть репозиторий]({data['html_url']})"
 
         send_info(text)
         return "Message sended", 200
