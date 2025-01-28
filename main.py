@@ -102,13 +102,26 @@ def send_message():
     if "commits" in data:
         repo = data["repository"]["name"]
         pusher = data["pusher"]["name"]
-        commit_messages = "\n".join(
-            [f"- {commit['message']}" for commit in data["commits"]])
 
         project_name = REPO_NAMES.get(repo, repo)
         repo_part = f"{repo}/{project_name}" if project_name != repo else f"{repo}"
 
-        text = f"🚀 Новый коммит в репозитории *{repo_part}* от [{pusher}](tg://user?id={github_to_tg(pusher)}):\n{commit_messages}"
+        commit_messages = []
+        for commit in data["commits"]:
+            commit_title, commit_desc = (
+                commit["message"].split("\n\n", 1) + [""])[:2]
+            commit_text = f"- [{commit_title}]({commit['url']})"
+            if commit_desc.strip():
+                commit_text += f"\n  _{commit_desc.strip()}_"
+            commit_messages.append(commit_text)
+
+        commit_text_block = "\n".join(commit_messages)
+
+        text = (f"🚀 Новый коммит в репозитории *{repo_part}*!\n"
+                f"👤 *Автор:* [{pusher}](tg://user?id={github_to_tg(pusher)})\n"
+                f"📝 *Изменения:*\n{commit_text_block}\n"
+                f"🔗 [Открыть репозиторий]({data['html_url']})"
+                )
 
         send_info(text)
         return "Message sended", 200
