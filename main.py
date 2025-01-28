@@ -31,7 +31,7 @@ def github_to_tg(nickname):
 
 def send_info(text):
     data = {"chat_id": CHAT_ID, "message_thread_id": THREAD_ID,
-            "parse_mode": "Markdown", "text": text}
+            "parse_mode": "Markdown", "text": text, "disable_web_page_preview": 1}
     response = requests.post(URL, data=data)
     return response.json()
 
