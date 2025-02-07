@@ -74,6 +74,19 @@ def send_message():
     #     send_info(text)
     #     return "Issue created and sent to Telegram", 200
 
+    if data.get("action") == "completed" and "workflow_job" in data:
+        repo = data["repository"]["name"]
+        job = data["workflow_job"]
+        job_name = job["name"]
+        conclusion = job["conclusion"]
+        workflow_url = job["html_url"]
+        sender = data["sender"]["login"]
+
+        project_name = REPO_NAMES.get(repo, repo)
+
+        if conclusion == "failure":
+            text = f"🚨 *Ошибка в GitHub Actions!* 🚨\n🔧 *Проект:* {repo}\n⚠️ *Проблемная джоба:* `{job_name}`\n👤 *Запустил:* [{sender}](tg://user?id={github_to_tg(sender)})\n🔗 [Открыть Workflow]({workflow_url})"
+
     if data.get("action") == "assigned" and "issue" in data:
         repo = data["repository"]["name"]
         issue = data["issue"]
@@ -104,7 +117,7 @@ def send_message():
         pusher = data["pusher"]["name"]
 
         project_name = REPO_NAMES.get(repo, repo)
-        repo_part = f"{repo}/{project_name}" if project_name != repo else f"{repo}"
+        repo_part = f"{project_name}" if project_name != repo else f"{repo}"
 
         commit_messages = []
         for commit in data["commits"]:
