@@ -85,7 +85,7 @@ def send_message():
         project_name = REPO_NAMES.get(repo, repo)
 
         if conclusion == "failure":
-            text = f"🚨 *Ошибка в GitHub Actions!* 🚨\n🔧 *Проект:* {repo}\n⚠️ *Проблемная джоба:* `{job_name}`\n👤 *Запустил:* [{sender}](tg://user?id={github_to_tg(sender)})\n🔗 [Открыть Workflow]({workflow_url})"
+            text = f"🚨 *Ошибка в GitHub Actions!* 🚨\n🔧 *Проект:* {project_name}\n⚠️ *Проблемная джоба:* `{job_name}`\n👤 *Запустил:* [{sender}](tg://user?id={github_to_tg(sender)})\n🔗 [Открыть Workflow]({workflow_url})"
 
             send_info(text)
             return "Failure notification sent", 200
