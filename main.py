@@ -87,6 +87,11 @@ def send_message():
         if conclusion == "failure":
             text = f"🚨 *Ошибка в GitHub Actions!* 🚨\n🔧 *Проект:* {repo}\n⚠️ *Проблемная джоба:* `{job_name}`\n👤 *Запустил:* [{sender}](tg://user?id={github_to_tg(sender)})\n🔗 [Открыть Workflow]({workflow_url})"
 
+            send_info(text)
+            return "Failure notification sent", 200
+
+        return "Ignored", 200
+
     if data.get("action") == "assigned" and "issue" in data:
         repo = data["repository"]["name"]
         issue = data["issue"]
