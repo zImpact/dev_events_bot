@@ -16,7 +16,7 @@ TG_IDS = {
     "Aleron-Meredi": os.getenv("EGOR_ID")
 }
 REPO_NAMES = {
-    "yana": "Яна",
+    "yn": "Яна",
     "din": "Дни нигде",
     "tl": "Петля времени",
     "osd": "Один украденный день",
