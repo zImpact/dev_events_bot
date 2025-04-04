@@ -74,6 +74,29 @@ def send_message():
     #     send_info(text)
     #     return "Issue created and sent to Telegram", 200
 
+    if data.get("action") == "review_requested" and "pull_request" in data:
+        pr = data["pull_request"]
+        title = pr["title"]
+        url = pr["html_url"]
+
+        requested_reviewer = data.get("requested_reviewer")
+        if requested_reviewer:
+            reviewer = requested_reviewer["login"]
+        else:
+            reviewer = "Неизвестный"
+
+        reviewer_mention = f"[{reviewer}](tg://user?id={github_to_tg(reviewer)})"
+
+        text = (
+            f"👀 Назначен новый ревьювер!\n"
+            f"📌 *Название:* {title}\n"
+            f"👤 *Ревьювер:* {reviewer_mention}\n"
+            f"🔗 [Открыть PR]({url})"
+        )
+
+        send_info(text)
+        return "Review requested notification sent", 200
+
     if data.get("action") == "completed" and "workflow_job" in data:
         repo = data["repository"]["name"]
         job = data["workflow_job"]
