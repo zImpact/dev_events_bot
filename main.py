@@ -140,7 +140,7 @@ def send_message():
         send_info(text)
         return "Issue closed notification sent", 200
 
-    if "commits" in data:
+    if "commits" in data and data["commits"]:
         repo = data["repository"]["name"]
         pusher = data["pusher"]["name"]
 
