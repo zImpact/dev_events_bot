@@ -1,4 +1,3 @@
-# app/handlers/github_actions_handler.py
 from flask import Blueprint, request, jsonify
 from app.service.github_actions_failed_event import process_github_actions_failed_event
 
