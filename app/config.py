@@ -32,5 +32,11 @@ JIRA_IDS = {
 }
 
 JIRA_REVIEWER_FIELD_IDS = {
+    "yn": 10092,
+    "din": 10042,
+    "tmlp": 10041,
+    "osd": 10091,
     "thld": 10039,
+    "bsar": 10093,
+    "dev_events_bot": 10040
 }
