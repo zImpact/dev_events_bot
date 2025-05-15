@@ -1,9 +1,9 @@
 import os
 from app.repository.git import GitRepository
-from app.config import WSGI_PATH
+from app.config import SERVER_WSGI_PATH
 
 
 def update_repository():
     git_repo = GitRepository()
     git_repo.pull_changes()
-    os.system(f"touch {WSGI_PATH}")
+    os.system(f"touch {SERVER_WSGI_PATH}")
