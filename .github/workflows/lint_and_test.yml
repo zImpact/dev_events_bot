@@ -10,7 +10,7 @@ on:
     types: [ opened, synchronize, reopened ]
 
 jobs:
-  lint_and_test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -31,6 +31,19 @@ jobs:
       - name: Check code formatting with black
         run: black --check .
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies for testing
+        run: pip install pytest
+
       - name: Run tests with pytest
-        run: |
-          pytest
+        run: pytest
