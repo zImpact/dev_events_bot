@@ -1,3 +1,5 @@
 flask
 requests
 gitpython
+pytest
+pytest-mock

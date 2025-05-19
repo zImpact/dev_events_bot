@@ -12,12 +12,12 @@ REPO_NAMES = {
     "tmlp": "Петля времени",
     "osd": "Один украденный день",
     "thld": "Преддверие",
-    "bsar": "Между сном и явью"
+    "bsar": "Между сном и явью",
 }
 
 TG_IDS = {
     "DmytroMamedbekov": os.getenv("DMYTRO_ID"),
     "paych3ck": os.getenv("ANDREY_ID"),
     "Buhicevskij": os.getenv("DANYA_ID"),
-    "Aleron-Meredi": os.getenv("EGOR_ID")
+    "Aleron-Meredi": os.getenv("EGOR_ID"),
 }

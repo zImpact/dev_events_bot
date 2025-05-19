@@ -14,8 +14,7 @@ def process_commit_event(data):
 
         commit_messages = []
         for commit in data["commits"]:
-            commit_title, commit_desc = (
-                commit["message"].split("\n\n", 1) + [""])[:2]
+            commit_title, commit_desc = (commit["message"].split("\n\n", 1) + [""])[:2]
             commit_text = f"- [{commit_title}]({commit['url']})"
             if commit_desc.strip():
                 commit_text += f"\n  _{commit_desc.strip()}_"

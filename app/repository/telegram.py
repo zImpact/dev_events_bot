@@ -12,7 +12,7 @@ class TelegramRepository:
             "message_thread_id": THREAD_ID,
             "parse_mode": "Markdown",
             "text": text,
-            "disable_web_page_preview": 1
+            "disable_web_page_preview": 1,
         }
         response = requests.post(self.url, data=data)
         return response.json()
