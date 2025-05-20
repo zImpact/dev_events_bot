@@ -60,6 +60,6 @@ def process_review_requested_event(data):
         
         text = "\n".join(lines)
         telegram_repo.send_message(text)
-        return "Commit event processed", 200
+        return "Review request event processed", 200
 
     return "Ignored", 200
