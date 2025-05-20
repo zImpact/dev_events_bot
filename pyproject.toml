@@ -41,14 +41,15 @@ select = [
 ignore = [
     "E203",
     "B008",
-    "SIM105"
+    "SIM105",
+    "RUF001"
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["T20", "ARG001"]
 
 [tool.mypy]
-python_version = 3.10
+python_version = "3.10"
 strict = true
 warn_unused_configs = true
 warn_return_any = true
@@ -59,3 +60,4 @@ no_implicit_optional = true
 warn_redundant_casts = true
 warn_unused_ignores = true
 show_error_codes = true
+explicit_package_bases = true

@@ -3,6 +3,7 @@
 format:
 	black .
 	isort .
+	ruff check . --fix
 
 lint:
 	black --check .

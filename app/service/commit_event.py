@@ -4,7 +4,7 @@ from app.utils import github_to_tg
 
 
 def process_commit_event(data):
-    if "commits" in data and data["commits"]:
+    if data.get("commits"):
         repo = data["repository"]["name"]
         pusher = data["pusher"]["name"]
         telegram_repo = TelegramRepository()
