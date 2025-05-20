@@ -12,20 +12,14 @@ def process_commit_event(data):
         project_name = REPO_NAMES.get(repo, repo)
         repo_part = f"{project_name}" if project_name != repo else f"{repo}"
 
-        commit_messages = []
         for commit in data["commits"]:
-            commit_title, commit_desc = (commit["message"].split("\n\n", 1) + [""])[:2]
+            commit_title = commit["message"].split("\n", 1)[0]
             commit_text = f"- [{commit_title}]({commit['url']})"
-            if commit_desc.strip():
-                commit_text += f"\n  _{commit_desc.strip()}_"
-            commit_messages.append(commit_text)
-
-        commit_text_block = "\n".join(commit_messages)
 
         text = (
             f"🚀 Новый коммит в репозитории проекта *{repo_part}*!\n"
             f"👤 *Автор:* [{pusher}](tg://user?id={github_to_tg(pusher)})\n"
-            f"📝 *Изменения:*\n{commit_text_block}\n"
+            f"📝 *Изменения:*\n{commit_text}\n"
             f"🔗 [Открыть репозиторий]({data['repository']['html_url']})"
         )
 
