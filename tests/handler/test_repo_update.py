@@ -1,5 +1,6 @@
 import pytest
 from flask import Flask
+
 import app.handler.repo_update as repo_handler
 
 
@@ -22,7 +23,9 @@ def test_update_repo_succes(mocker, client):
 
 def test_update_repo_failure(mocker, client):
     mocker.patch.object(
-        repo_handler, "update_repository", side_effect=Exception("Something went wrong")
+        repo_handler,
+        "update_repository",
+        side_effect=Exception("Something went wrong"),
     )
 
     response = client.post("/update_repo")

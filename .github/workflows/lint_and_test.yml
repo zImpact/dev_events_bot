@@ -23,13 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install flake8 black pytest
+          pip install black isort flake8 ruff mypy flake8-pyproject
 
-      - name: Run flake8
-        run: flake8 .
-
-      - name: Check code formatting with black
-        run: black --check .
+      - name: Run lint
+        run: make lint
 
   test:
     runs-on: ubuntu-latest
@@ -45,5 +42,5 @@ jobs:
       - name: Install dependencies for testing
         run: pip install -r requirements.txt
 
-      - name: Run tests with pytest
-        run: pytest
+      - name: Run tests
+        run: make test

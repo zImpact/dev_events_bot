@@ -1,6 +1,7 @@
 import os
-from app.repository.git import GitRepository
+
 from app.config import SERVER_WSGI_PATH
+from app.repository.git import GitRepository
 
 
 def update_repository():

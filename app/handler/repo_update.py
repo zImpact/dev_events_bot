@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+
 from app.service.repo_update import update_repository
 
 update_repo_bp = Blueprint("update_repo", __name__)

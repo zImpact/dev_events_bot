@@ -2,9 +2,14 @@
 
 format:
 	black .
+	isort .
 
 lint:
-	flake8 .
+	-black --check .
+	-isort . --check --diff
+	-flake8 .
+	-ruff check
+	-mypy --strict .
 
 test:
 	pytest

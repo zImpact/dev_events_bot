@@ -1,4 +1,5 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify, request
+
 from app.service.review_requested_event import process_review_requested_event
 
 review_requested_bp = Blueprint("review_requested", __name__)

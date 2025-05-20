@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class JiraColumn(Enum):
     IN_PROGRESS = "В работе"
     PAUSED = "В паузе"

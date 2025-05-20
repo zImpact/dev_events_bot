@@ -1,5 +1,6 @@
 import pytest
 from flask import Flask
+
 import app.handler.commit_event as commit_handler
 
 

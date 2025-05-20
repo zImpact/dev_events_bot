@@ -1,5 +1,8 @@
-from flask import Blueprint, request, jsonify
-from app.service.github_actions_failed_event import process_github_actions_failed_event
+from flask import Blueprint, jsonify, request
+
+from app.service.github_actions_failed_event import (
+    process_github_actions_failed_event,
+)
 
 actions_bp = Blueprint("github_actions", __name__)
 

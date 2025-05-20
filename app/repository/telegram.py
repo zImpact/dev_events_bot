@@ -1,10 +1,13 @@
 import requests
+
 from app.config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TELEGRAM_THREAD_ID
 
 
 class TelegramRepository:
     def __init__(self):
-        self.url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+        self.url = (
+            f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+        )
 
     def send_message(self, text):
         data = {

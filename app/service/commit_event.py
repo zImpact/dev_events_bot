@@ -1,5 +1,5 @@
-from app.repository.telegram import TelegramRepository
 from app.config import REPO_NAMES
+from app.repository.telegram import TelegramRepository
 from app.utils import github_to_tg
 
 

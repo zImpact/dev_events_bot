@@ -1,5 +1,6 @@
 import pytest
 from flask import Flask
+
 import app.handler.github_actions_failed_event as github_actions_failed_handler
 
 
@@ -36,4 +37,6 @@ def test_github_actions_failed_event_with_data(mocker, client):
     mock_process_github_actions_failed_event.assert_called_once_with(data)
 
     assert response.status_code == 200
-    assert response.get_json() == {"message": "Workflow completed successfully"}
+    assert response.get_json() == {
+        "message": "Workflow completed successfully"
+    }

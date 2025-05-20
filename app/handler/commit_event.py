@@ -1,4 +1,5 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify, request
+
 from app.service.commit_event import process_commit_event
 
 commit_bp = Blueprint("commit", __name__)

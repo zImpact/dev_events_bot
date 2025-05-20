@@ -22,13 +22,13 @@ TG_IDS = {
     "DmytroMamedbekov": os.getenv("DMYTRO_TG_ID"),
     "paych3ck": os.getenv("ANDREY_TG_ID"),
     "Buhicevskij": os.getenv("DANYA_TG_ID"),
-    "Aleron-Meredi": os.getenv("EGOR_TG_ID")
+    "Aleron-Meredi": os.getenv("EGOR_TG_ID"),
 }
 
 JIRA_IDS = {
     "DmytroMamedbekov": os.getenv("DMYTRO_JIRA_ID"),
     "paych3ck": os.getenv("ANDREY_JIRA_ID"),
-    "Buhicevskij": os.getenv("DANYA_JIRA_ID")
+    "Buhicevskij": os.getenv("DANYA_JIRA_ID"),
 }
 
 JIRA_REVIEWER_FIELD_IDS = {
@@ -38,5 +38,5 @@ JIRA_REVIEWER_FIELD_IDS = {
     "osd": 10091,
     "thld": 10039,
     "bsar": 10093,
-    "dev_events_bot": 10040
+    "dev_events_bot": 10040,
 }

@@ -1,8 +1,8 @@
-from app.repository.telegram import TelegramRepository
-from app.repository.jira import JiraRepository
-from app.config import REPO_NAMES, JIRA_BASE_URL, JIRA_REVIEWER_FIELD_IDS
+from app.config import JIRA_BASE_URL, JIRA_REVIEWER_FIELD_IDS, REPO_NAMES
 from app.models import JiraColumn
-from app.utils import github_to_tg, github_to_jira
+from app.repository.jira import JiraRepository
+from app.repository.telegram import TelegramRepository
+from app.utils import github_to_jira, github_to_tg
 
 
 def process_review_requested_event(data):
@@ -17,10 +17,12 @@ def process_review_requested_event(data):
             for r in reviewers
         )
 
+        assignee_mention = f"tg://user?id={github_to_tg(assignee)}"
+
         if len(reviewers) == 1:
             reviewers_label = "Ревьювер:"
             title_label = "Назначен ревьювер"
-            
+
         else:
             reviewers_label = "Ревьюверы:"
             title_label = "Назначены ревьюверы"
@@ -42,22 +44,28 @@ def process_review_requested_event(data):
             task_part = f"для задачи *«{task_title}»*"
             include_jira_link = True
 
-            jira_repo.move_issue_to_status(pr_branch, JiraColumn.IN_REVIEW.value)
+            jira_repo.move_issue_to_status(
+                pr_branch, JiraColumn.IN_REVIEW.value
+            )
 
-            jira_reviewers_ids = [github_to_jira(r["login"]) for r in reviewers]
-            jira_repo.assign_reviewers(pr_branch, JIRA_REVIEWER_FIELD_IDS[repo], jira_reviewers_ids)
-        
+            jira_reviewers_ids = [
+                github_to_jira(r["login"]) for r in reviewers
+            ]
+            jira_repo.assign_reviewers(
+                pr_branch, JIRA_REVIEWER_FIELD_IDS[repo], jira_reviewers_ids
+            )
+
         lines = [
             f"👀 {title_label} {task_part} в проекте *{repo_part}*!",
-            f"👤 *Исполнитель:* [{assignee}](tg://user?id={github_to_tg(assignee)})",
-            f"🔍 *{reviewers_label}* {reviewers_mentions}"
+            f"👤 *Исполнитель:* [{assignee}]({assignee_mention})",
+            f"🔍 *{reviewers_label}* {reviewers_mentions}",
         ]
 
         if include_jira_link:
             lines.append(f"💻 [Jira]({jira_url})")
 
         lines.append(f"🔗 [Pull Request]({pull_request['html_url']})")
-        
+
         text = "\n".join(lines)
         telegram_repo.send_message(text)
         return "Review request event processed", 200

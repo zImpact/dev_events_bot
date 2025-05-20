@@ -1,7 +1,8 @@
 from flask import Flask
-from app.handler.repo_update import update_repo_bp
+
 from app.handler.commit_event import commit_bp
 from app.handler.github_actions_failed_event import actions_bp
+from app.handler.repo_update import update_repo_bp
 from app.handler.review_requested_event import review_requested_bp
 
 app = Flask(__name__)
