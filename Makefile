@@ -5,11 +5,11 @@ format:
 	isort .
 
 lint:
-	-black --check .
-	-isort . --check --diff
-	-flake8 .
-	-ruff check
-	-mypy --strict .
+	black --check .
+	isort . --check --diff
+	flake8 .
+	ruff check
+	mypy --strict .
 
 test:
 	pytest
