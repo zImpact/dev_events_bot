@@ -1,6 +1,6 @@
 from app.repository.telegram import TelegramRepository
 from app.config import REPO_NAMES
-from app.utils import github_to_tg
+from app.utils import github_to_tg, escape_markdown
 
 
 def process_github_actions_failed_event(data):
@@ -17,7 +17,7 @@ def process_github_actions_failed_event(data):
         if conclusion == "failure":
             text = (
                 f"🚨 *Ошибка в GitHub Actions!* 🚨\n"
-                f"🔧 *Проект:* {project_name}\n"
+                f"🔧 *Проект:* {escape_markdown(project_name)}\n"
                 f"⚠️ *Проблемная джоба:* `{job_name}`\n"
                 f"👤 *Запустил:* [{sender}](tg://user?id={github_to_tg(sender)})\n"
                 f"🔗 [Открыть Workflow]({workflow_url})"
