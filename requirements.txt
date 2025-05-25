@@ -4,3 +4,4 @@ gitpython
 pytest
 pytest-mock
 jira
+python-dotenv
