@@ -9,7 +9,7 @@ def process_review_requested_event(data):
     if data.get("action") == "review_requested":
         repo = data["repository"]["name"]
         pull_request = data["pull_request"]
-        assignee = pull_request["assignee"]["login"]
+        assignee = data["sender"]["login"]
 
         reviewers = pull_request["requested_reviewers"]
         reviewers_mentions = ", ".join(
