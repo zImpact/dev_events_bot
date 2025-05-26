@@ -1,7 +1,7 @@
+from flask import current_app
+
 from app.config import JIRA_BASE_URL, JIRA_REVIEWER_FIELD_IDS, REPO_NAMES
 from app.models import JiraColumn
-from app.repository.jira import JiraRepository
-from app.repository.telegram import TelegramRepository
 from app.utils import github_to_jira, github_to_tg
 
 
@@ -30,13 +30,10 @@ def process_review_requested_event(data):
         project_name = REPO_NAMES.get(repo, repo)
         repo_part = f"{project_name}" if project_name != repo else f"{repo}"
 
-        telegram_repo = TelegramRepository()
-        jira_repo = JiraRepository()
-
         pr_branch = pull_request["head"]["ref"]
         jira_url = f"{JIRA_BASE_URL}/browse/{pr_branch}"
 
-        task_title = jira_repo.get_issue_title(pr_branch)
+        task_title = current_app.jira_repo.get_issue_title(pr_branch)
         if task_title is None:
             task_part = "Pull Request-a"
             include_jira_link = False
@@ -44,14 +41,14 @@ def process_review_requested_event(data):
             task_part = f"для задачи *«{task_title}»*"
             include_jira_link = True
 
-            jira_repo.move_issue_to_status(
+            current_app.jira_repo.move_issue_to_status(
                 pr_branch, JiraColumn.IN_REVIEW.value
             )
 
             jira_reviewers_ids = [
                 github_to_jira(r["login"]) for r in reviewers
             ]
-            jira_repo.assign_reviewers(
+            current_app.jira_repo.assign_reviewers(
                 pr_branch, JIRA_REVIEWER_FIELD_IDS[repo], jira_reviewers_ids
             )
 
@@ -67,7 +64,7 @@ def process_review_requested_event(data):
         lines.append(f"🔗 [Pull Request]({pull_request['html_url']})")
 
         text = "\n".join(lines)
-        telegram_repo.send_message(text)
+        current_app.telegram_repo.send_message(text)
         return "Review request event processed", 200
 
     return "Ignored", 200

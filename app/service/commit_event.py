@@ -1,5 +1,6 @@
+from flask import current_app
+
 from app.config import REPO_NAMES
-from app.repository.telegram import TelegramRepository
 from app.utils import github_to_tg
 
 
@@ -7,7 +8,6 @@ def process_commit_event(data):
     if data.get("commits"):
         repo = data["repository"]["name"]
         pusher = data["pusher"]["name"]
-        telegram_repo = TelegramRepository()
 
         project_name = REPO_NAMES.get(repo, repo)
         repo_part = f"{project_name}" if project_name != repo else f"{repo}"
@@ -23,7 +23,7 @@ def process_commit_event(data):
             f"🔗 [Открыть репозиторий]({data['repository']['html_url']})"
         )
 
-        telegram_repo.send_message(text)
+        current_app.telegram_repo.send_message(text)
         return "Commit event processed", 200
 
     return "Ignored", 200

@@ -1,5 +1,6 @@
+from flask import current_app
+
 from app.config import REPO_NAMES
-from app.repository.telegram import TelegramRepository
 from app.utils import escape_markdown, github_to_tg
 
 
@@ -12,7 +13,6 @@ def process_github_actions_failed_event(data):
         workflow_url = job["html_url"]
         sender = data["sender"]["login"]
         project_name = REPO_NAMES.get(repo, repo)
-        telegram_repo = TelegramRepository()
         sender_mention = f"tg://user?id={github_to_tg(sender)}"
 
         if conclusion == "failure":
@@ -23,7 +23,7 @@ def process_github_actions_failed_event(data):
                 f"👤 *Запустил:* [{sender}]({sender_mention})\n"
                 f"🔗 [Открыть Workflow]({workflow_url})"
             )
-            telegram_repo.send_message(text)
+            current_app.telegram_repo.send_message(text)
             return "Failure notification sent", 200
         return "Workflow completed successfully", 200
     return "Ignored", 200
