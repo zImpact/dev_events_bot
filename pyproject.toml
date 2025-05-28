@@ -51,14 +51,7 @@ per-file-ignores = [
     "__init__.py:F401",
     "tests/*:T20,ARG001"
 ]
-exclude = '''
-/(
-    \.venv
-  | __pycache__
-  | build
-  | dist
-)/
-'''
+exclude = [".venv", "__pycache__", "build", "dist"]
 
 [tool.ruff]
 line-length = 79
@@ -114,4 +107,5 @@ ruff = "^0.11.11"
 mypy = "^1.15.0"
 pytest = "^8.3.5"
 pytest-mock = "^3.14.1"
+flake8-pyproject = "^1.2.3"
 
