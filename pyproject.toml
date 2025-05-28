@@ -1,19 +1,18 @@
-[project]
+[tool.poetry]
 name = "dev-events-bot"
 version = "1.0.0"
+package-mode = false
 description = ""
-authors = [
-    {name = "Andrey Kataev",email = "kata3v.andrey@yandex.ru"}
-]
+authors = ["Andrey Kataev kata3v.andrey@yandex.ru"]
 readme = "README.md"
-requires-python = ">=3.10.4"
-dependencies = [
-    "flask (>=3.1.1,<4.0.0)",
-    "requests (>=2.32.3,<3.0.0)",
-    "gitpython (>=3.1.44,<4.0.0)",
-    "jira (>=3.8.0,<4.0.0)",
-    "python-dotenv (>=1.1.0,<2.0.0)"
-]
+
+[tool.poetry.dependencies]
+python = ">=3.10.4"
+flask = ">=3.1.1,<4.0.0"
+requests = ">=2.32.3,<3.0.0"
+gitpython = ">=3.1.44,<4.0.0"
+jira = ">=3.8.0,<4.0.0"
+python-dotenv = ">=1.1.0,<2.0.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
