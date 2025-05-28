@@ -100,6 +100,26 @@ explicit_package_bases = true
 [tool.pytest.ini_options]
 pythonpath = "."
 
+[tool.pytest_env]
+TELEGRAM_BOT_TOKEN = ""
+TELEGRAM_CHAT_ID = ""
+TELEGRAM_THREAD_ID = ""
+GITHUB_REPO_PATH = ""
+SERVER_WSGI_PATH = ""
+
+DMYTRO_TG_ID = ""
+ANDREY_TG_ID = ""
+DANYA_TG_ID = ""
+EGOR_TG_ID = ""
+
+DMYTRO_JIRA_ID = ""
+ANDREY_JIRA_ID = ""
+DANYA_JIRA_ID = ""
+
+JIRA_API_TOKEN = ""
+JIRA_BASE_URL = ""
+JIRA_LOGIN_EMAIL = ""
+
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
 isort = "^6.0.1"
@@ -111,4 +131,5 @@ pytest-mock = "^3.14.1"
 flake8-pyproject = "^1.2.3"
 types-requests = "^2.32.0.20250515"
 pylint = "^3.3.7"
+pytest-env = "^1.1.5"
 
