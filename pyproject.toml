@@ -1,3 +1,24 @@
+[project]
+name = "dev-events-bot"
+version = "1.0.0"
+description = ""
+authors = [
+    {name = "Andrey Kataev",email = "kata3v.andrey@yandex.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.10.4"
+dependencies = [
+    "flask (>=3.1.1,<4.0.0)",
+    "requests (>=2.32.3,<3.0.0)",
+    "gitpython (>=3.1.44,<4.0.0)",
+    "jira (>=3.8.0,<4.0.0)",
+    "python-dotenv (>=1.1.0,<2.0.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.black]
 line-length = 79
 target-version = ["py310"]
@@ -64,3 +85,13 @@ explicit_package_bases = true
 
 [tool.pytest.ini_options]
 pythonpath = "."
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+isort = "^6.0.1"
+flake8 = "^7.2.0"
+ruff = "^0.11.11"
+mypy = "^1.15.0"
+pytest = "^8.3.5"
+pytest-mock = "^3.14.1"
+
