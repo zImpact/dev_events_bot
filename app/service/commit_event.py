@@ -1,10 +1,12 @@
+from typing import Any
+
 from flask import current_app
 
 from app.config import REPO_NAMES
 from app.utils import github_to_tg
 
 
-def process_commit_event(data):
+def process_commit_event(data: Any) -> tuple[str, int]:
     if data.get("commits"):
         repo = data["repository"]["name"]
         pusher = data["pusher"]["name"]
@@ -23,7 +25,9 @@ def process_commit_event(data):
             f"🔗 [Открыть репозиторий]({data['repository']['html_url']})"
         )
 
-        current_app.telegram_repo.send_message(text)
+        current_app.telegram_repo.send_message(  # type: ignore[attr-defined]
+            text
+        )
         return "Commit event processed", 200
 
     return "Ignored", 200

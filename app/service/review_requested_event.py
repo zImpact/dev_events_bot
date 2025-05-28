@@ -1,3 +1,5 @@
+from typing import Any
+
 from flask import current_app
 
 from app.config import JIRA_BASE_URL, JIRA_REVIEWER_FIELD_IDS, REPO_NAMES
@@ -5,7 +7,7 @@ from app.models import JiraColumn
 from app.utils import github_to_jira, github_to_tg
 
 
-def process_review_requested_event(data):
+def process_review_requested_event(data: Any) -> tuple[str, int]:
     if data.get("action") == "review_requested":
         repo = data["repository"]["name"]
         pull_request = data["pull_request"]
@@ -33,7 +35,9 @@ def process_review_requested_event(data):
         pr_branch = pull_request["head"]["ref"]
         jira_url = f"{JIRA_BASE_URL}/browse/{pr_branch}"
 
-        task_title = current_app.jira_repo.get_issue_title(pr_branch)
+        task_title = current_app.jira_repo.get_issue_title(  # type: ignore[attr-defined] # noqa: E501
+            pr_branch
+        )
         if task_title is None:
             task_part = "Pull Request-a"
             include_jira_link = False
@@ -41,14 +45,14 @@ def process_review_requested_event(data):
             task_part = f"для задачи *«{task_title}»*"
             include_jira_link = True
 
-            current_app.jira_repo.move_issue_to_status(
+            current_app.jira_repo.move_issue_to_status(  # type: ignore[attr-defined] # noqa: E501
                 pr_branch, JiraColumn.IN_REVIEW.value
             )
 
             jira_reviewers_ids = [
                 github_to_jira(r["login"]) for r in reviewers
             ]
-            current_app.jira_repo.assign_reviewers(
+            current_app.jira_repo.assign_reviewers(  # type: ignore[attr-defined] # noqa: E501
                 pr_branch, JIRA_REVIEWER_FIELD_IDS[repo], jira_reviewers_ids
             )
 
@@ -64,7 +68,9 @@ def process_review_requested_event(data):
         lines.append(f"🔗 [Pull Request]({pull_request['html_url']})")
 
         text = "\n".join(lines)
-        current_app.telegram_repo.send_message(text)
+        current_app.telegram_repo.send_message(  # type: ignore[attr-defined]
+            text
+        )
         return "Review request event processed", 200
 
     return "Ignored", 200

@@ -1,17 +1,19 @@
 import pytest
 from flask import Flask
+from flask.testing import FlaskClient
+from pytest_mock import MockerFixture
 
 import app.handler.commit_event as commit_handler
 
 
 @pytest.fixture
-def client():
+def client() -> FlaskClient:
     app = Flask(__name__)
     app.register_blueprint(commit_handler.commit_bp)
     return app.test_client()
 
 
-def test_commit_event_no_data(client):
+def test_commit_event_no_data(client: FlaskClient) -> None:
     response = client.post(
         "/webhook/commits",
         json={},
@@ -21,7 +23,9 @@ def test_commit_event_no_data(client):
     assert response.get_json() == {"error": "No data received"}
 
 
-def test_commit_event_with_data(mocker, client):
+def test_commit_event_with_data(
+    mocker: MockerFixture, client: FlaskClient
+) -> None:
     data = {"key": "value"}
     mock_process_commit_event = mocker.patch.object(
         commit_handler,

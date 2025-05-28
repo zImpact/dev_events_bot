@@ -76,7 +76,8 @@ ignore = [
     "E203",
     "B008",
     "SIM105",
-    "RUF001"
+    "RUF001",
+    "RUF100"
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -108,4 +109,6 @@ mypy = "^1.15.0"
 pytest = "^8.3.5"
 pytest-mock = "^3.14.1"
 flake8-pyproject = "^1.2.3"
+types-requests = "^2.32.0.20250515"
+pylint = "^3.3.7"
 

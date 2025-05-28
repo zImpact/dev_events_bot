@@ -9,11 +9,11 @@ from app.repository.jira import JiraRepository
 from app.repository.telegram import TelegramRepository
 
 
-def create_app():
+def create_app() -> Flask:
     app = Flask(__name__)
-    app.git_repo = GitRepository()
-    app.jira_repo = JiraRepository()
-    app.telegram_repo = TelegramRepository()
+    app.git_repo = GitRepository()  # type: ignore[attr-defined]
+    app.jira_repo = JiraRepository()  # type: ignore[attr-defined]
+    app.telegram_repo = TelegramRepository()  # type: ignore[attr-defined]
     app.register_blueprint(update_repo_bp)
     app.register_blueprint(commit_bp)
     app.register_blueprint(actions_bp)

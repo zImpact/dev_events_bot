@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask.wrappers import Response
 
 from app.service.commit_event import process_commit_event
 
@@ -6,7 +7,7 @@ commit_bp = Blueprint("commit", __name__)
 
 
 @commit_bp.route("/webhook/commits", methods=["POST"])
-def commit_event():
+def commit_event() -> tuple[Response, int]:
     data = request.get_json()
     if not data:
         return jsonify({"error": "No data received"}), 400
