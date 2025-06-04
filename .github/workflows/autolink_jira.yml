@@ -2,7 +2,7 @@ name: Auto-Link JIRA Issue
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened ]
 
 jobs:
   autolink:
