@@ -2,12 +2,12 @@ from typing import Any
 
 from flask import current_app
 
-from app.config import REPO_NAMES
+from app.config import REPO_NAMES, MAIN_BRANCH
 from app.utils import github_to_tg
 
 
 def process_commit_event(data: Any) -> tuple[str, int]:
-    if data.get("commits"):
+    if data.get("commits") and data.get("ref") == f"refs/heads/{MAIN_BRANCH}":
         repo = data["repository"]["name"]
         pusher = data["pusher"]["name"]
 
