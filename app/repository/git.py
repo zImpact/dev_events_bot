@@ -1,11 +1,11 @@
 import git
 
-from app.config import GITHUB_REPO_PATH
+from app.config import GIT_REPO_PATH
 
 
 class GitRepository:
     def __init__(self) -> None:
-        self.repo = git.Repo(GITHUB_REPO_PATH)
+        self.repo = git.Repo(GIT_REPO_PATH)
         self.origin = self.repo.remotes.origin
 
     def pull_changes(self) -> None:
