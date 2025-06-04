@@ -2,7 +2,7 @@ from typing import Any
 
 from flask import current_app
 
-from app.config import REPO_NAMES, MAIN_BRANCH
+from app.config import MAIN_BRANCH, REPO_NAMES
 from app.utils import github_to_tg
 
 
