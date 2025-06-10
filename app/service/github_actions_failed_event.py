@@ -13,18 +13,36 @@ def process_github_actions_failed_event(data: Any) -> tuple[str, int]:
         job_name = job["name"]
         conclusion = job["conclusion"]
         workflow_url = job["html_url"]
+        branch_name = job["head_branch"]
+        commit_sha = job["head_sha"]
         sender = data["sender"]["login"]
         project_name = REPO_NAMES.get(repo, repo)
         sender_mention = f"tg://user?id={github_to_tg(sender)}"
 
         if conclusion == "failure":
-            text = (
-                f"🚨 *Ошибка в GitHub Actions!* 🚨\n"
-                f"🔧 *Проект:* {escape_markdown(project_name)}\n"
-                f"⚠️ *Проблемная джоба:* `{job_name}`\n"
-                f"👤 *Запустил:* [{sender}]({sender_mention})\n"
-                f"🔗 [Открыть Workflow]({workflow_url})"
+            lines = [
+                "🚨 *Ошибка в GitHub Actions!* 🚨",
+                f"🔧 *Проект:* {escape_markdown(project_name)}",
+            ]
+
+            if branch_name == "main":
+                lines.append("🏷️ *Ветка:* `main`")
+            else:
+                pr_url = current_app.github_repo.get_first_pr_url(  # type: ignore[attr-defined] # noqa: E501
+                    repo, commit_sha
+                )
+                pr_number = pr_url.rstrip("/").split("/")[-1]
+                lines.append(f"🔀 *Pull Request:* [#{pr_number}]({pr_url})")
+
+            lines.extend(
+                [
+                    f"⚠️ *Проблемная джоба:* `{job_name}`",
+                    f"👤 *Запустил:* [{sender}]({sender_mention})",
+                    f"🔗 [Открыть Workflow]({workflow_url})",
+                ]
             )
+
+            text = "\n".join(lines)
             current_app.telegram_repo.send_message(  # type: ignore[attr-defined] # noqa: E501
                 text
             )
