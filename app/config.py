@@ -13,6 +13,8 @@ JIRA_BASE_URL = os.environ["JIRA_BASE_URL"]
 JIRA_API_TOKEN = os.environ["JIRA_API_TOKEN"]
 JIRA_LOGIN_EMAIL = os.environ["JIRA_LOGIN_EMAIL"]
 
+MAIN_BRANCH = "main"
+
 REPO_NAMES = {
     "yn": "Яна",
     "din": "Дни нигде",
