@@ -2,6 +2,7 @@ from flask import Flask
 
 from app.handler.commit_event import commit_bp
 from app.handler.github_actions_failed_event import actions_bp
+from app.handler.pull_request_merged_event import pull_request_merged_bp
 from app.handler.repo_update import update_repo_bp
 from app.handler.review_requested_event import review_requested_bp
 from app.repository.git import GitRepository
@@ -20,6 +21,7 @@ def create_app() -> Flask:
     app.register_blueprint(commit_bp)
     app.register_blueprint(actions_bp)
     app.register_blueprint(review_requested_bp)
+    app.register_blueprint(pull_request_merged_bp)
     return app
 
 
