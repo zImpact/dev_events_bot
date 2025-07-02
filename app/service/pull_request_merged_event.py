@@ -1,6 +1,6 @@
 from typing import Any
 
-from config import MAIN_BRANCH
+from app.config import MAIN_BRANCH
 from flask import current_app
 
 from app.models import JiraColumn
