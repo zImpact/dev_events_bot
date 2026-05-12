@@ -1,14 +1,10 @@
 import re
 
-from app.config import JIRA_IDS, TG_IDS
+from app.config import TG_IDS
 
 
 def github_to_tg(nickname: str) -> str | None:
     return TG_IDS.get(nickname)
-
-
-def github_to_jira(nickname: str) -> str | None:
-    return JIRA_IDS.get(nickname)
 
 
 def escape_markdown(text: str) -> str:

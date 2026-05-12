@@ -11,7 +11,6 @@ python = ">=3.10.4"
 flask = ">=3.1.1,<4.0.0"
 requests = ">=2.32.3,<3.0.0"
 gitpython = ">=3.1.44,<4.0.0"
-jira = ">=3.8.0,<4.0.0"
 python-dotenv = ">=1.1.0,<2.0.0"
 pygithub = "^2.6.1"
 
@@ -115,14 +114,6 @@ ANDREY_TG_ID = ""
 DANYA_TG_ID = ""
 EGOR_TG_ID = ""
 
-DMYTRO_JIRA_ID = ""
-ANDREY_JIRA_ID = ""
-DANYA_JIRA_ID = ""
-
-JIRA_API_TOKEN = ""
-JIRA_BASE_URL = ""
-JIRA_LOGIN_EMAIL = ""
-
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
 isort = "^6.0.1"
@@ -135,4 +126,3 @@ flake8-pyproject = "^1.2.3"
 types-requests = "^2.32.0.20250515"
 pylint = "^3.3.7"
 pytest-env = "^1.1.5"
-
