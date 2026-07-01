@@ -132,7 +132,7 @@ def main() -> int:
     logging.basicConfig(
         level=logging.INFO, format="%(levelname)s: %(message)s"
     )
-    return renew()
+    return 0 if renew() else 1
 
 
 if __name__ == "__main__":

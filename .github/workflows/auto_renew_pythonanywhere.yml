@@ -2,11 +2,11 @@ name: Auto-Renew PythonAnywhere
 
 on:
   schedule:
-    - cron: "23 21 1 7 *"
+    - cron: "33 21 1 7 *"
   workflow_dispatch:
 
 jobs:
-  renew_and_keepalive:
+  renew:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
           python3 -m pip install --upgrade pip
           pip3 install requests beautifulsoup4 python-dotenv
 
-      - name: Run renewal script
+      - name: Run renew script
         env:
           PA_USERNAME: ${{ secrets.PA_USERNAME }}
           PA_PASSWORD: ${{ secrets.PA_PASSWORD }}
