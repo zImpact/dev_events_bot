@@ -2,7 +2,7 @@ name: Auto-Renew PythonAnywhere
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: '0 4 1,15 * *'
   workflow_dispatch:
 
 jobs:
